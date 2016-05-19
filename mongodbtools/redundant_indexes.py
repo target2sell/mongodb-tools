@@ -68,7 +68,7 @@ def main(options):
         return signature
 
     def report_redundant_indexes(current_db):
-        print "Checking DB: %s" % current_db.name
+        #print "Checking DB: %s" % current_db.name
         indexes = current_db.system.indexes.find()
         index_map = {}
         for index in indexes:

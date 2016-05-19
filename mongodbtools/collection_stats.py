@@ -18,7 +18,7 @@ def compute_signature(index):
     return signature
 
 def get_collection_stats(database, collection):
-    print "Checking DB: %s" % collection.full_name
+    #print "Checking DB: %s" % collection.full_name
     return database.command("collstats", collection.name)
 
 def get_cli_options():
