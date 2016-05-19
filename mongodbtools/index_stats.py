@@ -75,6 +75,11 @@ def get_cli_options():
                       action="store_true",
                       default=False,
                       help="Display all indexes")
+    parser.add_option("-n", "--nb_top",
+                      dest="nb_top",
+                      default="5",
+                      metavar="NB_TOP",
+                      help="Number of top indexes to display (default: 5)")
 
     (options, args) = parser.parse_args()
 
@@ -129,8 +134,6 @@ def main(options):
     x.align["Index Size"] = "r"
     x.padding_width = 1
 
-    print
-
     index_size_mapping = {}
     for db in all_db_stats:
         db_stats = all_db_stats[db]
@@ -148,9 +151,9 @@ def main(options):
     if options.all:
         print "Index Overview"
         print x.get_string(sortby="Collection")
+        print
 
-    print
-    print "Top 5 Largest Indexes"
+    print "Top " + options.nb_top + " Largest Indexes"
     x = PrettyTable(["Collection", "Index","% Size", "Index Size"])
     x.align["Collection"] = "l"
     x.align["Index"] = "l"
@@ -158,7 +161,7 @@ def main(options):
     x.align["Index Size"] = "r"
     x.padding_width = 1
 
-    top_five_indexes = sorted(index_size_mapping.keys(), reverse=True)[0:5]
+    top_five_indexes = sorted(index_size_mapping.keys(), reverse=True)[0:int(options.nb_top)]
     for size in top_five_indexes:
         x.add_row(index_size_mapping.get(size))
     print x
