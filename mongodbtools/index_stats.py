@@ -70,6 +70,11 @@ def get_cli_options():
                       default="",
                       metavar="PASSWORD",
                       help="Admin password if authentication is enabled")
+    parser.add_option("-a", "--all",
+                      dest="all",
+                      action="store_true",
+                      default=False,
+                      help="Display all indexes")
 
     (options, args) = parser.parse_args()
 
@@ -140,9 +145,9 @@ def main(options):
                 index_size_mapping[index_size] = row
                 x.add_row(row)
 
-
-    print "Index Overview"
-    print x.get_string(sortby="Collection")
+    if options.all:
+        print "Index Overview"
+        print x.get_string(sortby="Collection")
 
     print
     print "Top 5 Largest Indexes"
